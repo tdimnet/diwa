@@ -62,7 +62,7 @@ if(!$herokuError) {
                     null,
                     array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
             } elseif ('mysql' === $config['database']['driver']) {
-                $connectionString = $config['database']['driver'] . ':host=' . $config['database']['host'] . ';dbname=' . $config['database']['database'];
+                $connectionString = $config['database']['driver'] . ':host=' . $config['database']['server'] . ';dbname=' . $config['database']['database'];
                 $db = new PDO($connectionString,
                     $config['database']['username'],
                     $config['database']['password'],

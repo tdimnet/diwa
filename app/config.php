@@ -30,10 +30,10 @@ $config['system']['hashing_algorithm']      = 'md5';        // specify the hashi
 // ============================
 // DATABASE Settings
 // ============================
-$config['database']['driver']               = 'sqlite';                 // available options: sqlite, mysql
+$config['database']['driver']               = 'mysql';                 // available options: sqlite, mysql
 $config['database']['prefix']               = 'diwa_';                  // the table prefix (e.g. "diwa" generates the table name "diwa_users"). Do not change this after installation.
-$config['database']['database']             = '../database/db.s3db';    // for sqlite: Database filename; for mysql & pgsql: Database name
+$config['database']['database']             = 'diwa-db';    // for sqlite: Database filename; for mysql & pgsql: Database name
 // additional database settings for mysql & pgsql (ignore these if you use sqlite)
-$config['database']['server']               = 'localhost';              // specify Server Hostname here
+$config['database']['server']               = 'db';              // specify Server Hostname here
 $config['database']['username']             = 'username';               // database username ...
 $config['database']['password']             = 'password';               // ... and password

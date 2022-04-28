@@ -1,0 +1,58 @@
+version: '3.1'
+
+services:
+
+  app:
+    build: .
+    depends_on:
+      - db
+      - datadog-agent
+    ports:
+      - "8080:80"
+    environment:
+      - DD_AGENT_HOST=datadog-agent
+      - DD_TRACE_AGENT_PORT=8126
+      - DD_ENV=dev
+      - DD_SERVICE=app
+    labels:
+      my.custom.label.team: 'app'
+
+  datadog-agent:
+    image: datadog/agent
+    environment:
+      - DD_APM_ENABLED=true
+      - DD_APM_NON_LOCAL_TRAFFIC=true
+      - DD_LOGS_ENABLED=true
+      - DD_LOGS_CONFIG_CONTAINER_COLLECT_ALL=true
+      - DD_CONTAINER_EXCLUDE="name:datadog-agent"
+    env_file:
+      - ./.env
+    ports:
+      - "8126:8126"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /proc/:/host/proc/:ro
+      - /sys/fs/cgroup:/host/sys/fs/cgroup:ro
+      - /var/lib/docker/containers:/var/lib/docker/containers:ro
+    labels:
+      com.datadoghq.ad.check_names: "[ 'mysql' ]"
+      com.datadoghq.ad.init_configs: "[{}]"
+      com.datadoghq.ad.instances: "[{ 'host': 'db', 'user': 'datadog', 'pass': 'toto90' }]"
+
+  db:
+    image: mysql
+    #command: --default-authentication-plugin=mysql_native_password
+    #restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: diwa-db
+      MYSQL_USER: username
+      MYSQL_PASSWORD: password
+    security_opt:
+      - seccomp:unconfined
+    volumes:
+      - ./config/conf.yaml:/etc/datadog-agent/conf.d/mysql.d/conf.yaml
+    labels:
+      com.datadoghq.ad.logs: "[{ 'source':'mysql' , 'service':'mysql' }]"
+
+
