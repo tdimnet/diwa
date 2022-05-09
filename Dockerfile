@@ -1,10 +1,10 @@
 FROM php:7-apache
 
-COPY ./datadog-php-tracer.deb /opt
-RUN dpkg -i /opt/datadog-php-tracer.deb
-
 RUN apt-get update
 RUN apt-get install wget -y
+
+RUN wget https://github.com/DataDog/dd-trace-php/releases/download/0.73.0/datadog-php-tracer_0.73.0_amd64.deb -O /opt/datadog-php-tracer.deb
+RUN dpkg -i /opt/datadog-php-tracer.deb
 
 RUN wget https://github.com/DataDog/dd-trace-php/releases/latest/download/datadog-setup.php -O datadog-setup.php
 RUN php datadog-setup.php --php-bin all --enable-appsec
