@@ -13,7 +13,8 @@ services:
       - DD_AGENT_HOST=datadog-agent
       - DD_TRACE_AGENT_PORT=8126
       - DD_ENV=dev
-      - DD_SERVICE=app
+      - DD_SERVICE=diwa-app
+      - DD_APPSEC_ENABLED=true
     labels:
       my.custom.label.team: 'app'
 
@@ -42,8 +43,6 @@ services:
 
   db:
     image: mysql
-    #command: --default-authentication-plugin=mysql_native_password
-    #restart: always
     environment:
       MYSQL_ROOT_PASSWORD: password
       MYSQL_DATABASE: diwa-db
