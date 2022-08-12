@@ -1,41 +1,63 @@
 DIWA
 ====
+__NOTE__ : This is a fork fron the [Php Diwa Project](https://github.com/snsttr/diwa). 
+It initialy uses Sqlite instead of MySQL and didn't rely on Docker Compose.
+
+---
+
 This is just a short description. For full Documentation see [docs](docs) Directory.
 
 ## Requirements
-* PHP 5.6 or higher (PHP 7 is recommended) with at least one of the following PDO-Drivers: pdo_sqlite or pdo_mysql
+* Docker and docker-compose
 * A web browser (Firefox or Chrome are recommended)
 
+
 ## Manual Installation
+
 1. Clone the repository
 
-2. *Optional:* Install composer dependencies with `composer install`
+```
+# SSH
+$ git clone git@github.com:tdimnet/diwa.git
 
-3. *Optional:* Change the config settings in `app/config.php` 
+# HTTPS
+$ gitclone https://github.com/tdimnet/diwa.git
+```
 
-4. Use a Webserver of your choice. Make sure you use the project's "app" Directory as root path.
+2. Add your environment variables
 
-   The easiest way is to use the PHP Built-in Webserver:
+```
+$ cp .env.example .env
 
-       cd app
-       php -S 127.0.0.1:80 -t .
-       
-5. Use a browser of your choice to open `http://localhost/`
+## Then update:
+# Datadog Keys
+DD_SITE=datadoghq.eu
 
-## Docker
-To use DIWA within a Docker Container just clone the repository and run the following Docker
-commands:
+## DD Dog food account
+DD_API_KEY=
+DD_APP_KEY=
+```
 
-    docker build -t diwa .
-    docker run -p 8080:80 -d diwa:latest
+2. Build the images
 
-DIWA will be accessible on port 8080.
+```
+$ docker-compose build
+```
 
-## Reset DIWA
-There are three options to reset DIWA's Database:
+3. Run your images:
 
-* Click on the bomb-icon on the bottom of the page to get to the Reset-Page. There you can trigger
-  the database reset.
-* When calling `/?reset=diwa` the database is being resetted instantly (unprompted).
-* To also reset file changes and delete created files, just reset your git workspace (reset / clean).
-  When using MySQL you should additionally use one of the reset methods above.
+```
+$ docker-compose up
+```
+
+4. Browse the project
+
+Open [localhost:8080](http://localhost:8080) and follow the installation steps to set up your MySQL
+Database.
+
+
+## Instrumentations
+
+This project has been configured to be instrumented via Datadog. If you want to
+learn more, check this article.
+
