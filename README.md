@@ -3,9 +3,6 @@ DIWA
 __NOTE__ : This is a fork fron the [Php Diwa Project](https://github.com/snsttr/diwa). 
 It initialy uses Sqlite instead of MySQL and didn't rely on Docker Compose.
 
----
-
-This is just a short description. For full Documentation see [docs](docs) Directory.
 
 ## Requirements
 * Docker and docker-compose
