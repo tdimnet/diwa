@@ -35,12 +35,6 @@ services:
       - /proc/:/host/proc/:ro
       - /sys/fs/cgroup:/host/sys/fs/cgroup:ro
       - /var/lib/docker/containers:/var/lib/docker/containers:ro
-      - ./config/conf.yaml:/etc/datadog-agent/conf.d/mysql.d/conf.yaml:ro
-    labels:
-      com.datadoghq.ad.check_names: "[ 'mysql' ]"
-      com.datadoghq.ad.init_configs: "[{}]"
-      com.datadoghq.ad.instances: "[{ 'host': 'db', 'user': 'datadog', 'pass': 'toto90' }]"
-
   db:
     image: mysql
     environment:
@@ -50,6 +44,4 @@ services:
       MYSQL_PASSWORD: password
     security_opt:
       - seccomp:unconfined
-    labels:
-      com.datadoghq.ad.logs: "[{ 'source':'mysql' , 'service':'mysql' }]"
-
+  
